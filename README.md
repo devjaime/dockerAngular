@@ -1,27 +1,23 @@
 # Prueba
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.1.
+Archivos necesarios para la imagen son 
+.dockerignore
+Dockerfile
+en el archivo dockerfile fijarse en la linea:
 
-## Development server
+COPY --from=builder /ng-app/dist/prueba /usr/share/nginx/html
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+En esta linea deben cambiar el comando "prueba" por su proyecto en angular para enviarlo a docker
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+luego de los archivos son los pasos de correr docker
+Nota: se omite la instalacion de docker ya que dependen del sistema operativo, en windows solicitara habilitar hyper-v
+Paso 1. comando 1 
+Dentro de la carpeta deben realizar lo siguiente:
+$docker build -t prueba .
+donde "prueba" es la carpeta creada como proyecto de angular, esto genera la imagen docker :)
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Paso 2 comando 2
+$docker run -p 8080:80 prueba
+con este comando ustedes pueden correr la imagen docker esto levantara el nginx (servidor) en http://localhost:8080 --> exito!!
